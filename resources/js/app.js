@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Index from "./components/Index";
+import Index from './components/Index'
 
 require('./bootstrap');
 
