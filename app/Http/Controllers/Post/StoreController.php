@@ -23,7 +23,7 @@ class StoreController extends Controller
 
             Image::create([
                 'path' => $filePath,
-                'url' => url('/storage/') . $filePath,
+                'url' => url('/storage/' . $filePath),
                 'post_id' => $post->id
             ]);
         }
