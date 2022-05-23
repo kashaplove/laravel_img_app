@@ -9,6 +9,7 @@
           <div v-if="post">
               <h4>{{ post.title }}</h4>
               <div v-for="image in post.images" class="mb-3">
+                  <img :src="image.preview_url" alt="" class="mb-3">
                   <img :src="image.url" alt="" width="500">
               </div>
           </div>
@@ -37,7 +38,7 @@ export default {
             autoProcessQueue: false,
             addRemoveLinks: true,
         })
-        this.getPosts()
+        this.getPost()
     },
 
     methods: {
@@ -51,9 +52,12 @@ export default {
             data.append('title', this.title)
             this.title = ''
             axios.post('/api/posts', data)
+            .then(res => {
+                this.getPost()
+            })
         },
 
-        getPosts() {
+        getPost() {
             axios.get('/api/posts')
             .then(res => {
                 this.post = res.data.data

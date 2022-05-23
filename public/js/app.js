@@ -5387,6 +5387,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Index",
@@ -5403,7 +5404,7 @@ __webpack_require__.r(__webpack_exports__);
       autoProcessQueue: false,
       addRemoveLinks: true
     });
-    this.getPosts();
+    this.getPost();
   },
   methods: {
     store: function store() {
@@ -5418,9 +5419,11 @@ __webpack_require__.r(__webpack_exports__);
       });
       data.append('title', this.title);
       this.title = '';
-      axios.post('/api/posts', data);
+      axios.post('/api/posts', data).then(function (res) {
+        _this.getPost();
+      });
     },
-    getPosts: function getPosts() {
+    getPost: function getPost() {
       var _this2 = this;
 
       axios.get('/api/posts').then(function (res) {
@@ -28167,6 +28170,11 @@ var render = function () {
               _vm._v(" "),
               _vm._l(_vm.post.images, function (image) {
                 return _c("div", { staticClass: "mb-3" }, [
+                  _c("img", {
+                    staticClass: "mb-3",
+                    attrs: { src: image.preview_url, alt: "" },
+                  }),
+                  _vm._v(" "),
                   _c("img", {
                     attrs: { src: image.url, alt: "", width: "500" },
                   }),
