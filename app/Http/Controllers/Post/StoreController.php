@@ -15,6 +15,7 @@ class StoreController extends Controller
     {
         $data = $request->validated();
         $images = $data['images'];
+        dump($images);
         unset($data['images']);
         $post = Post::firstOrCreate($data);
         foreach ($images as $image) {

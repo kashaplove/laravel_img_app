@@ -1,10 +1,10 @@
 <template>
-  <div class="w-25">
-      <input v-model="title" type="text" class="form-control mb-2" placeholder="title">
-      <div ref="dropzone" class="p-5 d-block bg-dark text-center text-light btn mb-3">
+  <div>
+      <input v-model="title" type="text" class="form-control mb-2 w-25" placeholder="title">
+      <div ref="dropzone" class="p-5 d-block bg-dark text-center text-light btn mb-3 w-25">
           Upload
       </div>
-      <div class="mb-3">
+      <div class="mb-3 w-50">
           <vue-editor useCustomImageHandler @image-added="handleImageAdded" v-model="content" />
       </div>
       <input @click.prevent="store" type="submit" class="btn btn-primary" value="Add">
@@ -15,6 +15,7 @@
                   <img :src="image.preview_url" alt="" class="mb-3">
                   <img :src="image.url" alt="" width="500">
               </div>
+              <div class="ql-editor" v-html="post.content" style="overflow-y:hidden;"></div>
           </div>
       </div>
   </div>
@@ -59,7 +60,9 @@ export default {
                 this.dropzone.removeFile(file)
             })
             data.append('title', this.title)
+            data.append('content', this.content)
             this.title = ''
+            this.content = ''
             axios.post('/api/posts', data)
             .then(res => {
                 this.getPost()
@@ -91,6 +94,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.dz-success-mark, .dz-error-mark {
+    display: none;
+}
 
 </style>
